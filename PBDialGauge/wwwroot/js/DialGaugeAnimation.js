@@ -1,3 +1,3 @@
-﻿function AnimatePointer(Gauge) {
+﻿export function AnimatePointer(Gauge) {
     Gauge.querySelector("#animatePointer").beginElement();
 }

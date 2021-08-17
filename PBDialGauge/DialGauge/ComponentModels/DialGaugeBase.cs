@@ -14,12 +14,17 @@ namespace PBDialGauge.DialGauge.ComponentModels
         protected double _toRadious = 90;
         protected double _fromRadious = -90;
         protected double _pointerValue;
+        private IJSObjectReference jsTask;
 
         [Inject]
-        protected IJSRuntime _jsRuntime { get; set; }
+        protected IJSRuntime JsRuntime { get; set; }
 
         [Parameter]
         public bool IsRateGauge { get; set; } = false;
+
+        //TO BE REMOVED:   This is only for testing. The Dial Color Offsets should be calculated and assigned automatically based on the DialGoal Value.  The Real DialColorOffsets are commented out below in the Code.
+        [Parameter]
+        public double[] DialColorOffsets { get; set; } = new double[6];
 
         [Parameter]
         public double DialStartValue { get; set; } = 0;
@@ -121,15 +126,23 @@ namespace PBDialGauge.DialGauge.ComponentModels
                     _fromRadious = _toRadious;
                     _toRadious = value;
 
-                    try { _jsRuntime.InvokeVoidAsync("AnimatePointer", gauge); }
+                    try { jsTask.InvokeVoidAsync("AnimatePointer", gauge); }
                     catch (Exception e ) { }
                 }
             }
         }
 
-        protected double[] DialColorOffsets { get; set; } = new double[6];
+        //protected double[] DialColorOffsets { get; set; } = new double[6];
 
         protected double[] DialTicks { get; set; } = new double[11];
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if(firstRender)
+            {
+                jsTask = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/DialGaugeAnimation.js");
+            }
+        }
 
         private Task SetDialTicks()
         {

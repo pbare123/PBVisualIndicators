@@ -1,4 +1,366 @@
 ﻿@using ComponentModels
 @inherits DialGaugeBase
 
-<label>@d</label>
+
+<div style="background-color:black;">
+    <h3 style="color:white">@ID</h3>
+    <label style="color: red; font-size: 50px">@PointerValue</label>
+    <button>Animate</button>
+    <svg width="auto"
+         height="auto"
+         viewBox="0 0 800 600"
+         id="@ID" @ref="@gauge">
+        <defs id="defs424">
+            <linearGradient id="linearGradient8036">
+                <stop style="stop-color:#ff6600;stop-opacity:1"
+                      offset="0"
+                      id="stop8032" />
+                <stop style="stop-color:#ff9955;stop-opacity:1"
+                      offset="1"
+                      id="stop8034" />
+            </linearGradient>
+            <linearGradient id="linearGradient9164">
+                <stop style="stop-color:#000000;stop-opacity:1"
+                      offset="0"
+                      id="stop9160" />
+                <stop style="stop-color:#808080;stop-opacity:1"
+                      offset="1"
+                      id="stop9162" />
+            </linearGradient>
+            <linearGradient id="linearGradient9043">
+                <stop style="stop-color:#000000;stop-opacity:1"
+                      offset="0"
+                      id="stop9039" />
+                <stop style="stop-color:#cccccc;stop-opacity:1"
+                      offset="1"
+                      id="stop9041" />
+            </linearGradient>
+            <linearGradient id="@("dialColorScale" + ID)">
+                <stop style="stop-color:#ff0000;stop-opacity:1"
+                      offset="@DialColorOffsets[0]"
+                      id="stop1" />
+                <stop style="stop-color:#ff0000;stop-opacity:1"
+                      offset="@DialColorOffsets[1]"
+                      id="stop2" />
+                <stop style="stop-color:#ff6600;stop-opacity:1"
+                      offset="@DialColorOffsets[2]"
+                      id="stop3" />
+                <stop style="stop-color:#ffff00;stop-opacity:1"
+                      offset="@DialColorOffsets[3]"
+                      id="stop4" />
+                <stop style="stop-color:#ffff00;stop-opacity:1"
+                      offset="@DialColorOffsets[4]"
+                      id="stop5" />
+                <stop style="stop-color:#00ff00;stop-opacity:1"
+                      offset="@DialColorOffsets[5]"
+                      id="stop6" />
+            </linearGradient>
+            <linearGradient id="linearGradient7611-4-7-8-9-3-5-6-9-3-9-3-6-0-9-3">
+                <stop style="stop-color:#e6e6e6;stop-opacity:1"
+                      offset="0"
+                      id="stop7607" />
+                <stop style="stop-color:#000000;stop-opacity:1"
+                      offset="1"
+                      id="stop7609" />
+            </linearGradient>
+            <linearGradient xlink:href="#linearGradient7611-4-7-8-9-3-5-6-9-3-9-3-6-0-9-3"
+                            id="linearGradient7615"
+                            x1="399.86133"
+                            y1="598.43066"
+                            x2="398.13867"
+                            y2="376.43066"
+                            gradientUnits="userSpaceOnUse"
+                            gradientTransform="translate(0,-44.30192)" />
+            <linearGradient xlink:href="#linearGradient9043"
+                            id="linearGradient9045"
+                            x1="397.02597"
+                            y1="295.87915"
+                            x2="396.97406"
+                            y2="259.87915"
+                            gradientUnits="userSpaceOnUse"
+                            gradientTransform="translate(0,-43.98185)" />
+            <linearGradient xlink:href="#linearGradient9164"
+                            id="linearGradient9166"
+                            x1="397.34052"
+                            y1="571.34308"
+                            x2="397.16086"
+                            y2="551.82391"
+                            gradientUnits="userSpaceOnUse"
+                            gradientTransform="matrix(1.0911834,0,0,0.99901542,-36.473354,5.2920679)" />
+            <linearGradient xlink:href="#linearGradient8036"
+                            id="linearGradient8038"
+                            x1="397.58377"
+                            y1="255.08276"
+                            x2="399.89453"
+                            y2="542.08276"
+                            gradientUnits="userSpaceOnUse" />
+            <filter style="color-interpolation-filters:sRGB;"
+                    id="filter11144"
+                    x="-0.92382112"
+                    y="-0.10921417"
+                    width="2.619316"
+                    height="1.2256642">
+                <feFlood flood-opacity="0.498039"
+                         flood-color="rgb(249,0,0)"
+                         result="flood"
+                         id="feFlood11134" />
+                <feComposite in="flood"
+                             in2="SourceGraphic"
+                             operator="in"
+                             result="composite1"
+                             id="feComposite11136" />
+                <feGaussianBlur in="composite1"
+                                stdDeviation="13.2132"
+                                result="blur"
+                                id="feGaussianBlur11138" />
+                <feOffset dx="-10.479"
+                          dy="2.09581"
+                          result="offset"
+                          id="feOffset11140" />
+                <feComposite in="SourceGraphic"
+                             in2="offset"
+                             operator="over"
+                             result="composite2"
+                             id="feComposite11142" />
+            </filter>
+        </defs>
+        <g class="GaugeBottom">
+            <path id="rect1276"
+                  fill="url(#linearGradient9166)"
+                  d="M 50.645141,555.14534 H 749.35486 V 600 H 50.645141 Z" />
+        </g>
+        <g class="GaugeInnerBackground">
+            <path id="path6730"
+                  fill="url(#linearGradient7615)"
+                  d="m 624.51754,555.14534 a 224.58543,222.11078 0 0 0 0.0684,-1.92188 224.58543,222.11078 0 0 0 -0.28906,-11.24805 224.58543,222.11078 0 0 0 -0.86329,-11.22265 224.58543,222.11078 0 0 0 -1.4375,-11.16211 224.58543,222.11078 0 0 0 -2.00781,-11.07617 224.58543,222.11078 0 0 0 -2.57226,-10.96289 224.58543,222.11078 0 0 0 -3.13086,-10.81836 224.58543,222.11078 0 0 0 -3.67969,-10.64844 224.58543,222.11078 0 0 0 -4.2207,-10.45117 224.58543,222.11078 0 0 0 -4.75,-10.22657 224.58543,222.11078 0 0 0 -5.26954,-9.9746 224.58543,222.11078 0 0 0 -5.77148,-9.69727 224.58543,222.11078 0 0 0 -6.26172,-9.39648 224.58543,222.11078 0 0 0 -6.73437,-9.07031 224.58543,222.11078 0 0 0 -7.19141,-8.7207 224.58543,222.11078 0 0 0 -7.62695,-8.35156 224.58543,222.11078 0 0 0 -8.04688,-7.95703 224.58543,222.11078 0 0 0 -8.44336,-7.54297 224.58543,222.11078 0 0 0 -8.81836,-7.11133 224.58543,222.11078 0 0 0 -9.17187,-6.66211 224.58543,222.11078 0 0 0 -9.5,-6.19141 224.58543,222.11078 0 0 0 -9.80664,-5.70898 224.58543,222.11078 0 0 0 -10.08594,-5.21094 A 224.58543,222.11078 0 0 0 488.56641,349.1141 224.58543,222.11078 0 0 0 478,344.93831 a 224.58543,222.11078 0 0 0 -10.76758,-3.63867 224.58543,222.11078 0 0 0 -10.93945,-3.0957 224.58543,222.11078 0 0 0 -11.08399,-2.54492 224.58543,222.11078 0 0 0 -11.19921,-1.98438 224.58543,222.11078 0 0 0 -11.28907,-1.42187 224.58543,222.11078 0 0 0 -11.3457,-0.85548 224.58543,222.11078 0 0 0 -11.375,-0.28516 224.58543,222.11078 0 0 0 -31.96094,2.26173 224.58543,222.11078 0 0 0 -31.3125,6.73633 224.58543,222.11078 0 0 0 -30.02148,11.07422 224.58543,222.11078 0 0 0 -28.125,15.1875 224.58543,222.11078 0 0 0 -25.65235,18.99219 224.58543,222.11078 0 0 0 -22.6582,22.4082 224.58543,222.11078 0 0 0 -19.20312,25.36913 224.58543,222.11078 0 0 0 -15.35743,27.81445 224.58543,222.11078 0 0 0 -11.19726,29.69141 224.58543,222.11078 0 0 0 -6.81055,30.9668 224.58543,222.11078 0 0 0 -2.28711,31.60937 224.58543,222.11078 0 0 0 0.0684,1.92188 z" />
+        </g>
+        <g class="GaugePointerRing">
+            <ellipse fill="#000000" stroke="#ffffff" stroke-width="4"
+                     id="path3139"
+                     cx="400"
+                     cy="551.15588"
+                     rx="23.046886"
+                     ry="23.046888" />
+        </g>
+        <g class="GaugeColorScale">
+            <path id="path6115"
+                  fill="url(#@("dialColorScale" + ID))"
+                  d="m 400.00009,256.2508 a 299.44714,296.14774 0 0 0 -299.44726,296.14844 299.44714,296.14774 0 0 0 0.0937,2.7461 h 74.83593 a 224.58543,222.11078 0 0 1 -0.0684,-1.92188 224.58543,222.11078 0 0 1 2.28711,-31.60937 224.58543,222.11078 0 0 1 6.81055,-30.9668 224.58543,222.11078 0 0 1 11.19726,-29.69141 224.58543,222.11078 0 0 1 15.35743,-27.81445 224.58543,222.11078 0 0 1 19.20312,-25.36914 224.58543,222.11078 0 0 1 22.6582,-22.4082 224.58543,222.11078 0 0 1 25.65235,-18.99219 224.58543,222.11078 0 0 1 28.125,-15.1875 224.58543,222.11078 0 0 1 30.02148,-11.07422 224.58543,222.11078 0 0 1 31.3125,-6.73633 224.58543,222.11078 0 0 1 31.96094,-2.26172 224.58543,222.11078 0 0 1 11.375,0.28516 224.58543,222.11078 0 0 1 11.3457,0.85547 224.58543,222.11078 0 0 1 11.28907,1.42187 224.58543,222.11078 0 0 1 11.19921,1.98438 224.58543,222.11078 0 0 1 11.08399,2.54492 224.58543,222.11078 0 0 1 10.93945,3.0957 224.58543,222.11078 0 0 1 10.76758,3.63867 224.58543,222.11078 0 0 1 10.56641,4.17579 224.58543,222.11078 0 0 1 10.33984,4.69726 224.58543,222.11078 0 0 1 10.08594,5.21094 224.58543,222.11078 0 0 1 9.80664,5.70898 224.58543,222.11078 0 0 1 9.5,6.19141 224.58543,222.11078 0 0 1 9.17186,6.66211 224.58543,222.11078 0 0 1 8.81836,7.11133 224.58543,222.11078 0 0 1 8.44336,7.54297 224.58543,222.11078 0 0 1 8.04689,7.95703 224.58543,222.11078 0 0 1 7.62694,8.35156 224.58543,222.11078 0 0 1 7.19142,8.7207 224.58543,222.11078 0 0 1 6.73436,9.07031 224.58543,222.11078 0 0 1 6.26172,9.39649 224.58543,222.11078 0 0 1 5.77148,9.69727 224.58543,222.11078 0 0 1 5.26955,9.9746 224.58543,222.11078 0 0 1 4.75,10.22657 224.58543,222.11078 0 0 1 4.22069,10.45117 224.58543,222.11078 0 0 1 3.6797,10.64844 224.58543,222.11078 0 0 1 3.13086,10.81836 224.58543,222.11078 0 0 1 2.57225,10.96289 224.58543,222.11078 0 0 1 2.00781,11.07617 224.58543,222.11078 0 0 1 1.4375,11.16211 224.58543,222.11078 0 0 1 0.86329,11.22265 224.58543,222.11078 0 0 1 0.28906,11.24805 224.58543,222.11078 0 0 1 -0.0684,1.92188 h 74.83594 a 299.44714,296.14774 0 0 0 0.0937,-2.7461 A 299.44714,296.14774 0 0 0 399.9999,256.2508 Z" />
+
+        </g>
+        <g class="GaugeTickMarks">
+            <rect fill="#ffffff"
+                  id="rect12365"
+                  width="35.801899"
+                  height="4.2426057"
+                  x="113.98843"
+                  y="546.48083"
+                  transform="matrix(0.99993566,0.01134335,-0.00916942,0.99995796,0,0)" />
+            <path id="use13277"
+                  fill="#ffffff"
+                  transform="matrix(0.99993566,0.01134335,-0.00916942,0.99995796,0,0)"
+                  d="m 113.98843,546.48083 h 35.8019 v 4.24261 h -35.8019 z" />
+            <path id="use13279"
+                  fill="#ffffff"
+                  transform="matrix(0.94749004,0.31978528,-0.31772464,0.94818303,0,0)"
+                  d="m 263.04184,394.10974 h 35.8019 v 4.24261 h -35.8019 z" />
+            <path id="use13281"
+                  fill="#ffffff"
+                  transform="matrix(0.80229749,0.5969244,-0.59517876,0.80359333,0,0)"
+                  d="m 357.81485,203.23845 h 35.8019 v 4.2426 h -35.8019 z" />
+            <path id="use13283"
+                  fill="#ffffff"
+                  transform="matrix(0.57857047,0.8156324,-0.81437263,0.58034233,0,0)"
+                  d="m 389.0304,-7.4492402 h 35.80189 v 4.2426057 H 389.0304 Z" />
+            <path id="use13285"
+                  fill="#ffffff"
+                  transform="matrix(0.29820895,0.95450062,-0.95385004,0.30028337,0,0)"
+                  d="m 353.63287,-217.32976 h 35.8019 v 4.24261 h -35.8019 z" />
+            <path id="use13287"
+                  fill="#ffffff"
+                  transform="matrix(-0.01134335,0.99993566,-0.99995796,-0.00916942,0,0)"
+                  d="m 255.08723,-405.85852 h 35.8019 v 4.24261 h -35.8019 z" />
+            <path id="use13289"
+                  fill="#ffffff"
+                  transform="matrix(-0.31978528,0.94749004,-0.94818303,-0.31772464,0,0)"
+                  d="m 103.03984,-554.58105 h 35.8019 v 4.2426 h -35.8019 z" />
+            <path id="use13291"
+                  fill="#ffffff"
+                  transform="matrix(-0.5969244,0.80229749,-0.80359333,-0.59517876,0,0)"
+                  d="m -87.62587,-648.93927 h 35.801899 v 4.24261 H -87.62587 Z" />
+            <path id="use13293"
+                  fill="#ffffff"
+                  transform="matrix(-0.8156324,0.57857047,-0.58034233,-0.81437263,0,0)"
+                  d="m -298.24619,-679.69684 h 35.8019 v 4.24261 h -35.8019 z" />
+            <path id="use13295"
+                  fill="#ffffff"
+                  d="m -508.20416,-643.84296 h 35.8019 v 4.24261 h -35.8019 z"
+                  transform="matrix(-0.95450062,0.29820895,-0.30028337,-0.95385004,0,0)" />
+            <path id="use13297"
+                  fill="#ffffff"
+                  d="m -696.94763,-544.88721 h 35.8019 v 4.24261 h -35.8019 z"
+                  transform="matrix(-0.99993566,-0.01134335,0.00916942,-0.99995796,0,0)" />
+            <use x="0"
+                 y="0"
+                 xlink:href="#rect12365"
+                 id="use14031"
+                 width="100%"
+                 height="100%"
+                 style="fill:#666666"
+                 transform="matrix(0.6437482,0.15840658,-0.10869003,0.98734879,102.35459,-57.401424)" />
+            <path id="use14089"
+                  fill="#808080"
+                  transform="matrix(0.96688012,0.25523096,-0.11545511,0.9933127,0,0)"
+                  d="m 171.75749,459.91913 h 23.7897 v 4.21075 h -23.7897 z" />
+            <path id="use14091"
+                  fill="#808080"
+                  transform="matrix(0.84068693,0.54152146,-0.41675484,0.90901892,0,0)"
+                  d="m 305.15573,273.98984 h 23.7897 v 4.21075 h -23.7897 z" />
+            <path id="use14093"
+                  fill="#808080"
+                  transform="matrix(0.63220145,0.77480406,-0.6772597,0.73574404,0,0)"
+                  d="m 379.89136,63.752758 h 23.78969 v 4.210752 h -23.78969 z" />
+            <path id="use14095"
+                  fill="#808080"
+                  transform="matrix(0.36183169,0.93224344,-0.87146966,0.49044941,0,0)"
+                  d="m 388.64871,-150.21268 h 23.7897 v 4.21075 h -23.7897 z" />
+            <path id="use14097"
+                  fill="#808080"
+                  transform="matrix(0.05604332,0.99842834,-0.98037411,0.19714617,0,0)"
+                  d="m 330.57062,-346.96204 h 23.78969 v 4.21076 h -23.78969 z" />
+            <path id="use14099"
+                  fill="#808080"
+                  transform="matrix(-0.25523096,0.96688012,-0.9933127,-0.11545511,0,0)"
+                  d="m 211.3421,-507.23608 h 23.7897 v 4.21075 h -23.7897 z" />
+            <path id="use14101"
+                  fill="#808080"
+                  transform="matrix(-0.54152146,0.84068693,-0.90901892,-0.41675484,0,0)"
+                  d="m 42.634102,-615.34613 h 23.789696 v 4.21075 H 42.634102 Z" />
+            <path id="use14103"
+                  fill="#808080"
+                  transform="matrix(-0.77480406,0.63220145,-0.73574404,-0.6772597,0,0)"
+                  d="m -159.03906,-660.70959 h 23.78969 v 4.21075 h -23.78969 z" />
+            <path id="use14105"
+                  fill="#808080"
+                  transform="matrix(-0.93224344,0.36183169,-0.49044941,-0.87146966,0,0)"
+                  d="m -373.93622,-638.88599 h 23.7897 v 4.21076 h -23.7897 z" />
+            <path id="use14107"
+                  fill="#808080"
+                  transform="matrix(-0.99842834,0.05604332,-0.19714617,-0.98037411,0,0)"
+                  d="m -581.02173,-552.01154 h 23.7897 v 4.21076 h -23.7897 z" />
+        </g>
+        <g class="GaugeTickRing"
+           style="display:inline">
+            <path id="path7363"
+                  fill="url(#linearGradient9045)"
+                  d="M 399.98824,206.64924 A 349.1272,349.1272 0 0 0 50.90035,555.14534 h 49.73438 a 299.44714,296.14774 0 0 1 -0.082,-2.42578 299.44714,296.14774 0 0 1 3.04883,-42.14649 299.44714,296.14774 0 0 1 9.08008,-41.28906 299.44714,296.14774 0 0 1 14.93164,-39.58984 299.44714,296.14774 0 0 1 20.47461,-37.08399 299.44714,296.14774 0 0 1 25.60547,-33.82617 299.44714,296.14774 0 0 1 30.21094,-29.87891 299.44714,296.14774 0 0 1 34.20117,-25.32226 299.44714,296.14774 0 0 1 37.5,-20.25 299.44714,296.14774 0 0 1 40.03125,-14.76563 299.44714,296.14774 0 0 1 41.74805,-8.98242 299.44714,296.14774 0 0 1 42.61523,-3.01367 299.44714,296.14774 0 0 1 14.24805,0.33594 299.44714,296.14774 0 0 1 14.21679,1.0039 299.44714,296.14774 0 0 1 14.15039,1.67383 299.44714,296.14774 0 0 1 14.05469,2.33789 299.44714,296.14774 0 0 1 13.92774,2.99609 299.44714,296.14774 0 0 1 13.76562,3.64844 299.44714,296.14774 0 0 1 13.57617,4.29102 299.44714,296.14774 0 0 1 13.35352,4.92578 299.44714,296.14774 0 0 1 13.10156,5.54883 299.44714,296.14774 0 0 1 12.82031,6.16015 299.44714,296.14774 0 0 1 12.50977,6.75391 299.44714,296.14774 0 0 1 12.16992,7.33594 299.44714,296.14774 0 0 1 11.80274,7.90039 299.44714,296.14774 0 0 1 11.4082,8.44726 299.44714,296.14774 0 0 1 10.99023,8.97461 299.44714,296.14774 0 0 1 10.54688,9.48242 299.44714,296.14774 0 0 1 10.07812,9.9668 299.44714,296.14774 0 0 1 9.58594,10.42969 299.44714,296.14774 0 0 1 9.07422,10.86914 299.44714,296.14774 0 0 1 8.54102,11.2832 299.44714,296.14774 0 0 1 7.99023,11.67383 299.44714,296.14774 0 0 1 7.41797,12.03516 299.44714,296.14774 0 0 1 6.83008,12.37109 299.44714,296.14774 0 0 1 6.22656,12.67774 299.44714,296.14774 0 0 1 5.61133,12.95703 299.44714,296.14774 0 0 1 4.98047,13.20703 299.44714,296.14774 0 0 1 4.33984,13.42578 299.44714,296.14774 0 0 1 3.6875,13.61523 299.44714,296.14774 0 0 1 3.0293,13.77344 299.44714,296.14774 0 0 1 2.36328,13.90039 299.44714,296.14774 0 0 1 1.69336,13.9961 299.44714,296.14774 0 0 1 1.01562,14.05859 299.44714,296.14774 0 0 1 0.33985,14.0918 299.44714,296.14774 0 0 1 -0.082,2.42578 h 49.73438 A 349.1272,349.1272 0 0 0 399.98824,206.64924 Z" />
+        </g>
+        <g id="GaugeTicks">
+            <text xml:space="preserve"
+                  style="font-style:normal;font-weight:normal;font-size:17.4445px;line-height:1.25;font-family:sans-serif;fill:#ffffff;fill-opacity:1"
+                  x="644.62421"
+                  y="-557.76001"
+                  id="text21445"
+                  transform="matrix(0.06436603,0.8293795,-1.2059216,-0.00258929,0,0)"><tspan id="tspan21443"
+                                                                                             x="644.62421"
+                                                                                             y="-557.76001"
+                                                                                             style="stroke-width:1">@DialTicks[10]</tspan></text>
+            <text xml:space="preserve"
+                  style="font-style:normal;font-weight:normal;font-size:17.4445px;line-height:1.25;font-family:sans-serif;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1"
+                  x="725.03931"
+                  y="-431.93021"
+                  id="text22573"
+                  transform="matrix(0.26220479,0.78946946,-1.1710539,0.28789977,0,0)"><tspan id="tspan22571"
+                                                                                             x="725.03931"
+                                                                                             y="-431.93021"
+                                                                                             style="stroke-width:1">@DialTicks[9]</tspan></text>
+            <text xml:space="preserve"
+                  style="font-style:normal;font-weight:normal;font-size:17.4445px;line-height:1.25;font-family:sans-serif;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1"
+                  x="772.52692"
+                  y="-263.595"
+                  id="text23019"
+                  transform="matrix(0.48499602,0.67586408,-1.0325684,0.6229414,0,0)"><tspan id="tspan23017"
+                                                                                            x="772.52692"
+                                                                                            y="-263.595"
+                                                                                            style="stroke-width:1">@DialTicks[8]</tspan></text>
+            <text xml:space="preserve"
+                  style="font-style:normal;font-weight:normal;font-size:17.4445px;line-height:1.25;font-family:sans-serif;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1"
+                  x="742.40125"
+                  y="-132.36591"
+                  id="text23497"
+                  transform="matrix(0.62568253,0.5482105,-0.86431832,0.84095622,0,0)"><tspan id="tspan23495"
+                                                                                             x="742.40125"
+                                                                                             y="-132.36591"
+                                                                                             style="stroke-width:1">@DialTicks[7]</tspan></text>
+            <text xml:space="preserve"
+                  style="font-style:normal;font-weight:normal;font-size:17.4445px;line-height:1.25;font-family:sans-serif;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1"
+                  x="660.51276"
+                  y="76.634674"
+                  id="text24195"
+                  transform="matrix(0.79214181,0.25401719,-0.45837934,1.1154111,0,0)"><tspan id="tspan24193"
+                                                                                             x="660.51276"
+                                                                                             y="76.634674"
+                                                                                             style="stroke-width:1">@DialTicks[6]</tspan></text>
+            <text xml:space="preserve"
+                  style="font-style:normal;font-weight:normal;font-size:17.4445px;line-height:1.25;font-family:sans-serif;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1"
+                  x="481.14423"
+                  y="216.34427"
+                  id="text25073"
+                  transform="matrix(0.83087067,-0.04083281,-0.03676802,1.2053637,0,0)"><tspan id="tspan25071"
+                                                                                              x="481.14423"
+                                                                                              y="216.34427"
+                                                                                              style="stroke-width:1">@DialTicks[5]</tspan></text>
+            <text xml:space="preserve"
+                  style="font-style:normal;font-weight:normal;font-size:17.4445px;line-height:1.25;font-family:sans-serif;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1"
+                  x="266.4035"
+                  y="285.00644"
+                  id="text25611"
+                  transform="matrix(0.78411339,-0.27781213,0.3110707,1.1651131,0,0)"><tspan id="tspan25609"
+                                                                                            x="266.4035"
+                                                                                            y="285.00644"
+                                                                                            style="stroke-width:1">@DialTicks[4]</tspan></text>
+            <text xml:space="preserve"
+                  style="font-style:normal;font-weight:normal;font-size:17.4445px;line-height:1.25;font-family:sans-serif;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1"
+                  x="14.681333"
+                  y="308.0929"
+                  id="text25921"
+                  transform="matrix(0.65924762,-0.50735191,0.65716235,1.0111336,0,0)"><tspan id="tspan25919"
+                                                                                             x="14.681333"
+                                                                                             y="308.0929"
+                                                                                             style="stroke-width:1">@DialTicks[3]</tspan></text>
+            <text xml:space="preserve"
+                  style="font-style:normal;font-weight:normal;font-size:17.4445px;line-height:1.25;font-family:sans-serif;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1"
+                  x="-220.83691"
+                  y="280.71494"
+                  id="text26275"
+                  transform="matrix(0.49926162,-0.66539553,0.90398615,0.798162,0,0)"><tspan id="tspan26273"
+                                                                                            x="-220.83691"
+                                                                                            y="280.71494"
+                                                                                            style="stroke-width:1">@DialTicks[2]</tspan></text>
+            <text xml:space="preserve"
+                  style="font-style:normal;font-weight:normal;font-size:17.4445px;line-height:1.25;font-family:sans-serif;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1"
+                  x="-439.1272"
+                  y="221.36435"
+                  id="text26921"
+                  transform="matrix(0.31540399,-0.76976211,1.0759951,0.54450717,0,0)"><tspan id="tspan26919"
+                                                                                             x="-439.1272"
+                                                                                             y="221.36435"
+                                                                                             style="stroke-width:1">@DialTicks[1]</tspan></text>
+            <text xml:space="preserve"
+                  style="font-style:normal;font-weight:normal;font-size:17.4445px;line-height:1.25;font-family:sans-serif;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1"
+                  x="-670.97552"
+                  y="26.970877"
+                  id="text27391"
+                  transform="matrix(-0.07198219,-0.82875323,1.2058945,-0.00848876,0,0)"><tspan id="tspan27389"
+                                                                                               x="-670.97552"
+                                                                                               y="26.970877"
+                                                                                               style="stroke-width:1">@DialTicks[0]</tspan></text>
+        </g>
+        <g class="Pointer">
+            <path fill="url(#linearGradient8038)" stroke="#ff6600" stroke-width="1px" filter="url(#filter11144)"
+                  d="m 422.68657,543.97051 -25.18695,-290.15465 -20.7079,290.52741 c 0.86361,-7.31526 3.75416,-10.8261 6.65878,-13.23227 2.49377,-2.06581 4.85495,-3.13011 7.06194,-3.9206 1.31074,-0.46949 2.59289,-0.62386 3.79902,-1.01655 0.55203,-0.1797 1.08576,-0.20054 1.77902,-0.29728 0.79459,-0.11087 1.64648,-0.14591 2.48406,-0.18241 3.31566,-0.14447 7.04979,0.47461 10.25793,1.64333 3.33187,1.21495 6.70224,2.87257 8.73582,5.27143 4.20891,4.96488 5.11829,11.36173 5.11829,11.36173 z"
+                  id="path2527" />
+            <animateTransform id="animatePointer" attributeName="transform" attributeType="XML" type="rotate" from="@_fromRadious,400.03284,551.38949" to="@Radious,400.03284,551.38949" dur="1s" fill="freeze" begin="0s" />
+        </g>
+    </svg>
+</div>
