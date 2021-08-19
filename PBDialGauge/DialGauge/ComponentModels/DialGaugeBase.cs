@@ -28,7 +28,7 @@ namespace PBDialGauge.DialGauge.ComponentModels
 
         [Parameter]
         public double DialStartValue { get; set; } = 0;
-
+        
         [Parameter]
         public double DialEndValue { get; set; } = 100;
 
@@ -59,59 +59,54 @@ namespace PBDialGauge.DialGauge.ComponentModels
             double desiredMin = 0;
             double desiredMax = 1;
 
-            double m = (desiredMax - desiredMin) / (actualMax - actualMin);
-            double c = (desiredMin - actualMin) * m;
+            // ( desiredmin + (value - actualmin) * (desiredmax - desiredmin) / (actualmax - actualmin));
+            double m = ScaledValue(actualMin, actualMax, goalValue, desiredMin, desiredMax);
+            //double c = (desiredMin - actualMin) * m;
 
-            double gradientgoal = (m * goalValue + c);
-            double gradient0 = gradientgoal + .1;
+            double gradientgoal = m;
+            double gradient0 = 0;
             double gradient1 = gradientgoal - .005;
             double gradient2 = gradientgoal - .15;
             double gradient3 = gradientgoal - .2;
-            double gradient4 = gradientgoal - .3;
-            double gradient5 = gradientgoal - .4;
+            //double gradient4 = gradientgoal - .3;
+            //double gradient5 = 1;
 
             switch (IsRateGauge)
             {
-                case true:
-                    gradient0 = gradientgoal - .1;
-                    gradient1 = gradientgoal - .05;
-                    gradient2 = gradientgoal;
-                    gradient3 = gradientgoal + .1;
-                    gradient4 = gradientgoal + .25;
-                    gradient5 = gradientgoal + .3;
-                    gradients = new double[]
-                    {
-                        0,
-                        Math.Round(gradient0, 2, MidpointRounding.ToEven),
-                        Math.Round(gradient1, 2, MidpointRounding.ToEven),
-                        Math.Round(gradient2, 2, MidpointRounding.ToEven),
-                        Math.Round(gradient3, 2, MidpointRounding.ToEven),
-                        Math.Round(gradient4, 2, MidpointRounding.ToEven),
-                        gradient5,
-                        1
-                    };
-                    break;
                 case false:
-                    gradient0 = gradientgoal + .1;
-                    gradient1 = gradientgoal - .005;
-                    gradient2 = gradientgoal - .15;
-                    gradient3 = gradientgoal - .2;
-                    gradient4 = gradientgoal - .3;
-                    gradient5 = gradientgoal - .4;
-
+                    gradient0 = gradientgoal - .3;
+                    gradient1 = gradientgoal - .2;
+                    gradient2 = gradientgoal - .08;
+                    gradient3 = 1;
                     gradients = new double[]
                     {
-                        0,
-                        Math.Round(gradient5, 2, MidpointRounding.ToEven),
-                        Math.Round(gradient4, 2, MidpointRounding.ToEven),
-                        Math.Round(gradient3, 2, MidpointRounding.ToEven),
-                        Math.Round(gradient2, 2, MidpointRounding.ToEven),
-                        Math.Round(gradient1, 2, MidpointRounding.ToEven),
                         gradient0,
-                        //Math.Round((gradientgoal + .00), 2),
-                        1
+                        gradient1,
+                        gradient2,
+                        gradient3
                     };
                     break;
+                //case true:
+                //    gradient0 = gradientgoal + .1;
+                //    gradient1 = gradientgoal - .005;
+                //    gradient2 = gradientgoal - .15;
+                //    gradient3 = gradientgoal - .2;
+                //    gradient4 = gradientgoal - .3;
+                //    gradient5 = gradientgoal - .4;
+
+                //    gradients = new double[]
+                //    {
+                //        0,
+                //        Math.Round(gradient5, 2, MidpointRounding.ToEven),
+                //        Math.Round(gradient4, 2, MidpointRounding.ToEven),
+                //        Math.Round(gradient3, 2, MidpointRounding.ToEven),
+                //        Math.Round(gradient2, 2, MidpointRounding.ToEven),
+                //        Math.Round(gradient1, 2, MidpointRounding.ToEven),
+                //        gradient0,
+                //        //Math.Round((gradientgoal + .00), 2),
+                //        1
+                //    };
+                //    break;
             }
 
             return gradients;
