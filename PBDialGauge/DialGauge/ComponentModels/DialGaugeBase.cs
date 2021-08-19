@@ -23,8 +23,8 @@ namespace PBDialGauge.DialGauge.ComponentModels
         public bool IsRateGauge { get; set; } = false;
 
         //TO BE REMOVED:   This is only for testing. The Dial Color Offsets should be calculated and assigned automatically based on the DialGoal Value.  The Real DialColorOffsets are commented out below in the Code.
-        [Parameter]
-        public double[] DialColorOffsets { get; set; } = new double[6];
+        //[Parameter]
+        //public double[] DialColorOffsets { get; set; } = new double[6];
 
         [Parameter]
         public double DialStartValue { get; set; } = 0;
@@ -45,6 +45,7 @@ namespace PBDialGauge.DialGauge.ComponentModels
             set
             {
                 _pointerValue = value;
+                Radious = ScaledValue(DialStartValue, DialEndValue, value);
                 
             }
         }
@@ -132,7 +133,7 @@ namespace PBDialGauge.DialGauge.ComponentModels
             }
         }
 
-        //protected double[] DialColorOffsets { get; set; } = new double[6];
+        protected double[] DialColorOffsets { get; set; } = new double[6];
 
         protected double[] DialTicks { get; set; } = new double[11];
 
@@ -140,7 +141,10 @@ namespace PBDialGauge.DialGauge.ComponentModels
         {
             if(firstRender)
             {
-                jsTask = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/DialGaugeAnimation.js");
+                jsTask = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/PBDialGauge/js/DialGaugeAnimation.js");
+                await SetDialTicks();
+                var g = GradientScale();
+                DialColorOffsets = g;
             }
         }
 
@@ -170,6 +174,11 @@ namespace PBDialGauge.DialGauge.ComponentModels
         private double ScaledValue(double actualmin, double actualmax, double value, double desiredmin = -90, double desiredmax = 90)
         {
             return ( desiredmin + (value - actualmin) * (desiredmax - desiredmin) / (actualmax - actualmin));
+        }
+
+        protected async Task Animate()
+        {
+            await jsTask.InvokeVoidAsync("AnimatePointer", gauge);
         }
     }
 }

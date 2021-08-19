@@ -1,0 +1,33 @@
+﻿@page "/Index"
+
+<div style="width:400px; height:400px; margin:0px 0px 100px 0px">
+
+    <DialGauge PointerValue="@PointerValue" DialEndValue="100" DialStartValue="0" DialGoal="80" ID="DG1" IsRateGauge="false" ></DialGauge>
+</div>
+<div style="width:600px; height:600px;">
+    <DialGauge PointerValue="@PointerValue1" DialEndValue="5000" DialStartValue="300" DialGoal="3500" IsRateGauge="false"></DialGauge>
+</div>
+
+@code {
+    protected double PointerValue { get; set; }
+    protected double PointerValue1 { get; set; }
+    private Random rand = new Random();
+
+    protected override Task OnInitializedAsync()
+    {
+        System.Timers.Timer t = new System.Timers.Timer();
+        t.Interval = 4000;
+        t.AutoReset = true;
+        t.Elapsed += TimeElapsed;
+        t.Start();
+        return base.OnInitializedAsync();
+    }
+
+    private void TimeElapsed(object source, System.Timers.ElapsedEventArgs e)
+    {
+        PointerValue = (double)rand.Next(0, 100);
+        PointerValue1 = (double)rand.Next(300, 5000);
+        Task.Delay(500);
+        StateHasChanged();
+    }
+}
