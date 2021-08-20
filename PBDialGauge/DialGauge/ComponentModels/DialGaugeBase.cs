@@ -27,9 +27,9 @@ namespace PBDialGauge.DialGauge.ComponentModels
         public bool IsRateGauge { get; set; } = false;
 
         /// <summary>
-        /// Colors ued for Dial Colors in Order as presented
-        /// <example> Colors="@(new string[]{"red", "orange", "yellow" "green"})" </example>
-        /// <exception> Invalid Colors will result with defaults being used </exception>
+        /// <c>Colors</c>Get Or Set Colors used for Dial Colors in Order as presented
+        /// <example>Example: <code>Colors="@(new string[]{"red", "orange", "yellow" "green"})" </code></example>
+        /// <exception cref="member"> Invalid Colors will result with defaults being used </exception>
         /// <remarks>Defaults are red, orange, yellow, green</remarks>
         /// </summary>
         [Parameter]
