@@ -27,7 +27,7 @@ namespace PBDialGauge.DialGauge.ComponentModels
         public bool IsRateGauge { get; set; } = false;
 
         /// <summary>
-        /// <c>Colors</c>Get Or Set Colors used for Dial Colors in Order as presented
+        /// <c>Colors</c> Get Or Set Colors used for Dial Colors in Order as presented
         /// <example>Example: <code>Colors="@(new string[]{"red", "orange", "yellow" "green"})" </code></example>
         /// <exception cref="member"> Invalid Colors will result with defaults being used </exception>
         /// <remarks>Defaults are red, orange, yellow, green</remarks>
@@ -86,17 +86,12 @@ namespace PBDialGauge.DialGauge.ComponentModels
             double desiredMin = 0;
             double desiredMax = 1;
 
-            // ( desiredmin + (value - actualmin) * (desiredmax - desiredmin) / (actualmax - actualmin));
-            double m = ScaledValue(actualMin, actualMax, goalValue, desiredMin, desiredMax);
-            //double c = (desiredMin - actualMin) * m;
+            double gradientgoal = ScaledValue(actualMin, actualMax, goalValue, desiredMin, desiredMax);
 
-            double gradientgoal = m;
-            double gradient0 = 0;
-            double gradient1 = gradientgoal - .005;
-            double gradient2 = gradientgoal - .15;
-            double gradient3 = gradientgoal - .2;
-            //double gradient4 = gradientgoal - .3;
-            //double gradient5 = 1;
+            double gradient0;
+            double gradient1;
+            double gradient2;
+            double gradient3;
 
             switch (IsRateGauge)
             {
@@ -105,36 +100,22 @@ namespace PBDialGauge.DialGauge.ComponentModels
                     gradient1 = gradientgoal - .2;
                     gradient2 = gradientgoal - .08;
                     gradient3 = 1;
-                    gradients = new double[]
+                    break;
+                case true:
+                    gradient0 = gradientgoal + .08;
+                    gradient1 = gradientgoal + .2;
+                    gradient2 = gradientgoal + .3;
+                    gradient3 = 1;
+                    break;
+            }
+
+            gradients = new double[]
                     {
                         gradient0,
                         gradient1,
                         gradient2,
                         gradient3
                     };
-                    break;
-                    //case true:
-                    //    gradient0 = gradientgoal + .1;
-                    //    gradient1 = gradientgoal - .005;
-                    //    gradient2 = gradientgoal - .15;
-                    //    gradient3 = gradientgoal - .2;
-                    //    gradient4 = gradientgoal - .3;
-                    //    gradient5 = gradientgoal - .4;
-
-                    //    gradients = new double[]
-                    //    {
-                    //        0,
-                    //        Math.Round(gradient5, 2, MidpointRounding.ToEven),
-                    //        Math.Round(gradient4, 2, MidpointRounding.ToEven),
-                    //        Math.Round(gradient3, 2, MidpointRounding.ToEven),
-                    //        Math.Round(gradient2, 2, MidpointRounding.ToEven),
-                    //        Math.Round(gradient1, 2, MidpointRounding.ToEven),
-                    //        gradient0,
-                    //        //Math.Round((gradientgoal + .00), 2),
-                    //        1
-                    //    };
-                    //    break;
-            }
 
             return gradients;
         }
@@ -164,10 +145,15 @@ namespace PBDialGauge.DialGauge.ComponentModels
             if (firstRender)
             {
                 jsTask = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/PBDialGauge/js/DialGaugeAnimation.js");
-                await SetDialTicks();
-                var g = GradientScale();
-                DialColorOffsets = g;
+                await SetupGauge();
             }
+        }
+
+        private async Task SetupGauge()
+        {
+            await SetDialTicks();
+           
+            DialColorOffsets = GradientScale();
         }
 
         private Task SetDialTicks()
