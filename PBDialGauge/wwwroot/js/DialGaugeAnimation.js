@@ -2,7 +2,7 @@
     Gauge.querySelector("#animatePointer").beginElement();
 }
 
-export function validTextColour(stringToTest) {
+export function ValitateColor(stringToTest) {
     //Alter the following conditions according to your need.
     if (stringToTest === "") { return false; }
     if (stringToTest === "inherit") { return false; }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using PBDialGauge.CommonHelpers;
 using System;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace PBDialGauge.DialGauge.ComponentModels
         protected double _toRadious = 90;
         protected double _fromRadious = -90;
         protected double _pointerValue;
+        protected string[] _dialColors = new string[] { "Red", "Orange", "Yellow", "Lime" };
         private IJSObjectReference jsTask;
 
         [Inject]
@@ -33,7 +35,23 @@ namespace PBDialGauge.DialGauge.ComponentModels
         /// <remarks>Defaults are red, orange, yellow, green</remarks>
         /// </summary>
         [Parameter]
-        public string[] Colors { get; set; } = new string[] { "Red", "Orange", "Yellow", "Lime" };
+        public string[] Colors
+        {
+            get => _dialColors;
+            set
+            {
+                if( value != null)
+                {
+                    //ColorValidationHelper ch = new();
+                    //bool isValidColors =  ch.ValidateColor(Task<string[]>.Factory.StartNew( () => value)).Result;
+                    //if (isValidColors)
+                    //{
+                        _dialColors = value;
+                    //}
+                }
+                
+            }
+        }
 
         /// <summary>
         /// The lowerend value of the Gauge Range Scale
