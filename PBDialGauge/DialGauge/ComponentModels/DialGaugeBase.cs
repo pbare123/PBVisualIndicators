@@ -11,6 +11,7 @@ namespace PBDialGauge.DialGauge.ComponentModels
     /// </summary>
     public class DialGaugeBase : ComponentBase
     {
+        private int Initilized = 0;
         protected ElementReference gauge;
         protected double _toRadious = 90;
         protected double _fromRadious = -90;
@@ -40,16 +41,7 @@ namespace PBDialGauge.DialGauge.ComponentModels
             get => _dialColors;
             set
             {
-                if( value != null)
-                {
-                    //ColorValidationHelper ch = new();
-                    //bool isValidColors =  ch.ValidateColor(Task<string[]>.Factory.StartNew( () => value)).Result;
-                    //if (isValidColors)
-                    //{
-                        _dialColors = value;
-                    //}
-                }
-                
+                _dialColors = value;
             }
         }
 
@@ -158,18 +150,49 @@ namespace PBDialGauge.DialGauge.ComponentModels
 
         protected double[] DialTicks { get; set; } = new double[11];
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        protected override async Task OnParametersSetAsync()
+        {
+            
+            //if (!gaugeIsInnitialized) { await SetupGauge(); gaugeIsInnitialized = true; }
+            await base.OnParametersSetAsync();
+        }
+
+        protected override async void OnAfterRender(bool firstRender)
         {
             if (firstRender)
             {
                 jsTask = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/PBDialGauge/js/DialGaugeAnimation.js");
                 await SetupGauge();
             }
+            else
+            {
+                if (Initilized < 3)
+                {
+                    Initilized++;
+                }
+            }
+
+            if(Initilized == 2)
+            {
+                await SetupGauge();
+            }
+        }
+
+        private async Task ValidateColors()
+        {
+            ColorValidationHelper ch = new(JsRuntime);
+            bool isValidColors = await ch.ValidateColor(Task<string[]>.Factory.StartNew(() => Colors));
+            if (!isValidColors)
+            {
+                Colors = new string[] { "Red", "Orange", "Yellow", "Lime" };
+                StateHasChanged();
+            }
         }
 
         private async Task SetupGauge()
         {
             await SetDialTicks();
+            await ValidateColors();
            
             DialColorOffsets = GradientScale();
         }

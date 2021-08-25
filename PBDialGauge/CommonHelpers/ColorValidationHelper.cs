@@ -11,35 +11,35 @@ namespace PBDialGauge.CommonHelpers
 {
     public class ColorValidationHelper : IColorValidationHelper
     {
-        [Inject]
-        public IJSRuntime Js { get; set; }
+        
+        private readonly IJSRuntime Js;
         private IJSObjectReference jsTask;
 
-        public ColorValidationHelper()
+        public ColorValidationHelper(IJSRuntime Js)
         {
-            //ValueTask t = Js.InvokeAsync<IJSObjectReference>("import", "./_content/PBDialGauge/js/DialGaugeAnimation.js");
+            this.Js = Js;
         }
 
         public async Task<bool> ValidateColor(Task<string[]> colors)
         {
+            string[] myColors = await colors;
             bool output = false;
             List<bool> iSValidColors = new();
             jsTask = await Js.InvokeAsync<IJSObjectReference>("import", "./_content/PBDialGauge/js/DialGaugeAnimation.js");
-            foreach (string color in colors.Result)
+            foreach (string color in myColors)
             {
                 try
                 {
-                    var t = jsTask.InvokeAsync<bool>("ValitateColor", color);
+                    var t = await jsTask.InvokeAsync<bool>("ValitateColor", color);
+                    iSValidColors.Add(t);
                 }
                 catch (Exception e)
                 {
                     Debug.WriteLine(e, e.Message);
                 }
-                
-                //iSValidColors.Add((bool)result);
             }
 
-            output = !iSValidColors.All(x => x);
+            output = iSValidColors.All(x => x);
             return output;
         }
     }
