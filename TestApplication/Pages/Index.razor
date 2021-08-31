@@ -2,19 +2,25 @@
 
 <div style="width:400px; height:400px; margin:0px 0px 100px 0px">
 
-    <DialGauge PointerValue="@PointerValue" DialEndValue="100" DialStartValue="0" DialGoal="70" ID="DG1" IsRateGauge="false" Colors="@(new string[]{"violet", "blue", "indigo", "asd" })"></DialGauge>
+    <DialGauge PointerValue="@PointerValue" @bind-DialEndValue="Gauge1EndValue" @bind-DialStartValue="Gauge1StartValue" DialGoal="70" ID="DG1" IsRateGauge="false" @bind-Colors="DialColors1"></DialGauge>
 </div>
 <div style="width:600px; height:600px;">
-    <DialGauge PointerValue="@PointerValue1" DialEndValue="5000" DialStartValue="1000" DialGoal="4500" IsRateGauge="false"></DialGauge>
+    <DialGauge PointerValue="@PointerValue1" @bind-DialEndValue="Dial2EndValue" @bind-DialStartValue="Dial2StartValue" DialGoal="4500" IsRateGauge="false"></DialGauge>
 </div>
 
 @code {
     protected double PointerValue { get; set; }
     protected double PointerValue1 { get; set; }
     private Random rand = new Random();
+    private string[] DialColors1 { get; set; } = new string[] { "violet", "blue", "indigo", "" };
+    private double Gauge1StartValue { get; set; } = 0;
+    private double Gauge1EndValue { get; set; } = 100;
+    private double Dial2StartValue { get; set; } = 1000;
+    private double Dial2EndValue { get; set; } = 5000;
 
     protected override Task OnInitializedAsync()
     {
+
         System.Timers.Timer t = new System.Timers.Timer();
         t.Interval = 4000;
         t.AutoReset = true;
@@ -26,7 +32,7 @@
     private void TimeElapsed(object source, System.Timers.ElapsedEventArgs e)
     {
         PointerValue = (double)rand.Next(0, 100);
-        PointerValue1 = (double)rand.Next(300, 5000);
+        PointerValue1 = (double)rand.Next(1000, 5000);
         Task.Delay(500);
         StateHasChanged();
     }

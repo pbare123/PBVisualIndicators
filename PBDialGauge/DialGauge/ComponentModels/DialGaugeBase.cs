@@ -11,7 +11,6 @@ namespace PBDialGauge.DialGauge.ComponentModels
     /// </summary>
     public class DialGaugeBase : ComponentBase
     {
-        private int Initilized = 0;
         protected ElementReference gauge;
         protected double _toRadious = 90;
         protected double _fromRadious = -90;
@@ -31,8 +30,9 @@ namespace PBDialGauge.DialGauge.ComponentModels
 
         /// <summary>
         /// <c>Colors</c> Get Or Set Colors used for Dial Colors in Order as presented
-        /// <example>Example: <code>Colors="@(new string[]{"red", "orange", "yellow" "green"})" </code></example>
-        /// <exception cref="member"> Invalid Colors will result with defaults being used </exception>
+        /// <example>Example: <code>@bind-Colors="Colors" </code></example>
+        /// <example><code>private string[] Colors {get; set;} = new string[]{"red", "orange", "yellow" "green"}; </code></example>
+        /// <exception cref="member"> Invalid Colors will result with the default colors </exception>
         /// <remarks>Defaults are red, orange, yellow, green</remarks>
         /// </summary>
         [Parameter]
@@ -44,6 +44,17 @@ namespace PBDialGauge.DialGauge.ComponentModels
                 _dialColors = value;
             }
         }
+        /// <summary>
+        /// Binds the default dial colors if supplied colors are invalid 
+        /// </summary>
+        [Parameter]
+        public EventCallback<string[]> ColorsChanged { get; set; }
+
+        [Parameter]
+        public EventCallback<double> DialStartValueChanged { get; set; }
+
+        [Parameter]
+        public EventCallback<double> DialEndValueChanged { get; set; }
 
         /// <summary>
         /// The lowerend value of the Gauge Range Scale
@@ -82,8 +93,24 @@ namespace PBDialGauge.DialGauge.ComponentModels
             set
             {
                 _pointerValue = value;
-                Radious = ScaledValue(DialStartValue, DialEndValue, value);
+                
+                VlidatePointerValue(value);
+                Radious = ScaledValue(DialStartValue, DialEndValue, value); 
 
+            }
+        }
+
+        private async void VlidatePointerValue(double value)
+        {
+            if (value > DialEndValue || value < DialStartValue)
+            {
+                if (value > DialEndValue)
+                {
+                    DialEndValue = Math.Round((value + 10), 0);
+                    await DialEndValueChanged.InvokeAsync(DialEndValue);
+                }
+                await SetupGauge();
+                
             }
         }
 
@@ -150,30 +177,12 @@ namespace PBDialGauge.DialGauge.ComponentModels
 
         protected double[] DialTicks { get; set; } = new double[11];
 
-        protected override async Task OnParametersSetAsync()
-        {
-            
-            //if (!gaugeIsInnitialized) { await SetupGauge(); gaugeIsInnitialized = true; }
-            await base.OnParametersSetAsync();
-        }
-
         protected override async void OnAfterRender(bool firstRender)
         {
+            
             if (firstRender)
             {
                 jsTask = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/PBDialGauge/js/DialGaugeAnimation.js");
-                await SetupGauge();
-            }
-            else
-            {
-                if (Initilized < 3)
-                {
-                    Initilized++;
-                }
-            }
-
-            if(Initilized == 2)
-            {
                 await SetupGauge();
             }
         }
@@ -185,7 +194,7 @@ namespace PBDialGauge.DialGauge.ComponentModels
             if (!isValidColors)
             {
                 Colors = new string[] { "Red", "Orange", "Yellow", "Lime" };
-                StateHasChanged();
+                await ColorsChanged.InvokeAsync(Colors);
             }
         }
 
@@ -209,7 +218,7 @@ namespace PBDialGauge.DialGauge.ComponentModels
 
             while (s < m)
             {
-                DialTicks[s] = i;
+                DialTicks[s] = Math.Round(i, 0);
 
                 i += mi;
 
