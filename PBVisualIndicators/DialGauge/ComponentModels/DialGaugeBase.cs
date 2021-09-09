@@ -4,7 +4,7 @@ using PBDialGauge.CommonHelpers;
 using System;
 using System.Threading.Tasks;
 
-namespace PBDialGauge.DialGauge.ComponentModels
+namespace PBVisualIndicators.DialGauge.ComponentModels
 {
     /// <summary>
     /// 
@@ -93,9 +93,9 @@ namespace PBDialGauge.DialGauge.ComponentModels
             set
             {
                 _pointerValue = value;
-                
+
                 VlidatePointerValue(value);
-                Radious = ScaledValue(DialStartValue, DialEndValue, value); 
+                Radious = ScaledValue(DialStartValue, DialEndValue, value);
 
             }
         }
@@ -106,11 +106,11 @@ namespace PBDialGauge.DialGauge.ComponentModels
             {
                 if (value > DialEndValue)
                 {
-                    DialEndValue = Math.Round((value + 10), 0);
+                    DialEndValue = Math.Round(value + 10, 0);
                     await DialEndValueChanged.InvokeAsync(DialEndValue);
                 }
                 await SetupGauge();
-                
+
             }
         }
 
@@ -179,10 +179,10 @@ namespace PBDialGauge.DialGauge.ComponentModels
 
         protected override async void OnAfterRender(bool firstRender)
         {
-            
+
             if (firstRender)
             {
-                jsTask = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/PBDialGauge/js/DialGaugeAnimation.js");
+                jsTask = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/PBVisualIndicators/js/DialGaugeAnimation.js");
                 await SetupGauge();
             }
         }
@@ -202,7 +202,7 @@ namespace PBDialGauge.DialGauge.ComponentModels
         {
             await SetDialTicks();
             await ValidateColors();
-           
+
             DialColorOffsets = GradientScale();
         }
 
@@ -231,7 +231,7 @@ namespace PBDialGauge.DialGauge.ComponentModels
 
         private double ScaledValue(double actualmin, double actualmax, double value, double desiredmin = -90, double desiredmax = 90)
         {
-            return (desiredmin + (value - actualmin) * (desiredmax - desiredmin) / (actualmax - actualmin));
+            return desiredmin + (value - actualmin) * (desiredmax - desiredmin) / (actualmax - actualmin);
         }
 
         protected async Task Animate()

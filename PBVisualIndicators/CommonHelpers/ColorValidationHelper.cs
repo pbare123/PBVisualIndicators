@@ -25,7 +25,7 @@ namespace PBDialGauge.CommonHelpers
             string[] myColors = await colors;
             bool output = false;
             List<bool> iSValidColors = new();
-            jsTask = await Js.InvokeAsync<IJSObjectReference>("import", "./_content/PBDialGauge/js/DialGaugeAnimation.js");
+            jsTask = await Js.InvokeAsync<IJSObjectReference>("import", "./_content/PBVisualIndicators/js/DialGaugeAnimation.js");
             foreach (string color in myColors)
             {
                 try

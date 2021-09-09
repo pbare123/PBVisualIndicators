@@ -1,9 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PBDialGauge", "PBDialGauge\PBDialGauge.csproj", "{7E3A8D6D-C8CD-4E74-A697-1627041EE0B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PBVisualIndicators", "PBVisualIndicators\PBVisualIndicators.csproj", "{7E3A8D6D-C8CD-4E74-A697-1627041EE0B5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApplication", "TestApplication\TestApplication.csproj", "{BF29477B-D169-4271-B589-6BEE7503B6FC}"
 EndProject
